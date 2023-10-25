@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head> 
+  <title>New Tab</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <link rel="icon" href="images/chrome.png" type="image/png">
+
+</head>
+
+<body>
+  <div class="sectionLeft">
+    <center>
+      <div class="scoreContainer unselectable">
+        <span id="score">0</span> cookie <br>
+        <span id="scorepersecond">0</span> cookies per second
+      </div>
+      <button onclick="resetGame()">Reset Game</button>
+      <br>
+      <div class="clickerContainer unselectable">
+        <img src="images/spookyCookie.png" height="256px" width="256px" onclick="addToScore(clickValue)" class="cookieclick">
+      </div>
+    </center>
+  </div>
+
+  <div class="sectionRight unselectable">
+    <table class="shopButton unselectable" onclick="buyCursor()">
+      <tr>
+        <td id="image"><img src="images/clickcursor.png"></td>
+        <td id="nameAndCost">
+          <p>Cursor</p>
+          <p><span id="cursorcost">15</span> cookies</p>
+        </td>
+        <td id="amount"><span id="cursors">0</span></td>
+      </tr>
+    </table>
+    <table class="shopButton unselectable" onclick="buyGrandma()">
+      <tr>
+        <td id="image"><img src="images/grandma.png"></td>
+        <td id="nameAndCost">
+          <p>Mama </p>
+          <p><span id="grandmaCost">100</span> cookies</p>
+        </td>
+        <td id="amount"><span id="grandmas">0</span></td>
+      </tr>
+    </table>
+    <table class="shopButton unselectable" onclick="buyFarm()">
+      <tr>
+        <td id="image"><img src="images/farm.png"></td>
+        <td id="nameAndCost">
+          <p>Farm </p>
+          <p><span id="farmCost">900</span> cookies</p>
+        </td>
+        <td id="amount"><span id="farms">0</span></td>
+      </tr>
+    </table>
+    <table class="shopButton unselectable" onclick="buyMine()">
+      <tr>
+        <td id="image"><img src="images/mine.png"></td>
+        <td id="nameAndCost">
+          <p>Mine </p>
+          <p><span id="mineCost">5000</span> cookies</p>
+        </td>
+        <td id="amount"><span id="mines">0</span></td>
+      </tr>
+    </table>
+    <div id="upgrades">
+      <h3>Upgrades!</h3>
+      <button onclick="buyBlueCursor()" title="Click this to buy 2x clicks. (Stacks)">
+        Blue Cursor [ <span id="blueCursorCost">100</span> cookies]
+      </button>
+    </div>
+  </div>
+
+  <script>
+    var score = 0;
+
+    var cursorCost = 15;
+    var cursors = 0;
+    var grandmaCost = 100;
+    var grandmas = 0;
+    var farmCost = 900;
+    var farms = 0;
+    var mines = 0;
+    var mineCost = 5000;
+
+    var clickValue = 1;
+
+    var blueCursorCost = 100;
+    var blueCursors = 0;
+
+    function buyCursor() {
+      if (score >= cursorCost) {
+        score = score - cursorCost;
+        cursors = cursors + 1;
+        cursorCost = Math.round(cursorCost * 1.15);
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("cursorcost").innerHTML = cursorCost;
+        document.getElementById("cursors").innerHTML = cursors;
+        updateScorePerSecond();
+      }
+    }
+
+    function buyGrandma() {
+      if (score >= grandmaCost) {
+        score = score - grandmaCost;
+        grandmas = grandmas + 1;
+        grandmaCost = Math.round(grandmaCost * 1.15);
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("grandmaCost").innerHTML = grandmaCost;
+        document.getElementById("grandmas").innerHTML = grandmas;
+        updateScorePerSecond();
+      }
+    }
+
+    function buyFarm() {
+      if (score >= farmCost) {
+        score = score - farmCost;
+        farms = farms + 1;
+        farmCost = Math.round(farmCost * 1.15);
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("farmCost").innerHTML = farmCost;
+        document.getElementById("farms").innerHTML = farms;
+        updateScorePerSecond();
+      }
+    }
+
+    function buyMine() {
+      if (score >= mineCost) {
+        score = score - mineCost;
+        mines = mines + 1;
+        mineCost = Math.round(mineCost * 1.15);
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("mineCost").innerHTML = mineCost;
+        document.getElementById("mines").innerHTML = mines;
+        updateScorePerSecond();
+      }
+    }
+
+    function updateScorePerSecond() {
+      var scorePerSecond = cursors + (grandmas * 5) + (farms * 20) + (mines * 100);
+      document.getElementById("scorepersecond").innerHTML = scorePerSecond;
+    }
+
+    function addToScore(amount) {
+      score = score + amount;
+      document.getElementById("score").innerHTML = score;
+    }
+
+    function saveGame() {
+      var gameSave = {
+        score: score,
+        cursorCost: cursorCost,
+        cursors: cursors,
+        grandmaCost: grandmaCost,
+        grandmas: grandmas,
+        farmCost: farmCost,
+        farms: farms,
+        mineCost: mineCost,
+        mines: mines,
+        blueCursorCost: blueCursorCost,
+        blueCursors: blueCursors,
+        clickValue: clickValue,
+      };
+      localStorage.setItem("gameSave", JSON.stringify(gameSave));
+    }
+
+    function loadGame() {
+      var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+      if (savedGame) {
+        if (typeof savedGame.score !== "undefined") score = savedGame.score;
+        if (typeof savedGame.cursorCost !== "undefined") cursorCost = savedGame.cursorCost;
+        if (typeof savedGame.cursors !== "undefined") cursors = savedGame.cursors;
+        if (typeof savedGame.grandmaCost !== "undefined") grandmaCost = savedGame.grandmaCost;
+        if (typeof savedGame.grandmas !== "undefined") grandmas = savedGame.grandmas;
+        if (typeof savedGame.farmCost !== "undefined") farmCost = savedGame.farmCost;
+        if (typeof savedGame.farms !== "undefined") farms = savedGame.farms;
+        if (typeof savedGame.mines !== "undefined") mines = savedGame.mines;
+        if (typeof savedGame.mineCost !== "undefined") mineCost = savedGame.mineCost;
+        if (typeof savedGame.blueCursorCost !== "undefined") blueCursorCost = savedGame.blueCursorCost;
+        if (typeof savedGame.blueCursors !== "undefined") blueCursors = savedGame.blueCursors;
+        if (typeof savedGame.clickValue !== "undefined") clickValue = savedGame.clickValue;
+      }
+    }
+
+    window.onload = function () {
+      loadGame();
+      updateScorePerSecond();
+      document.getElementById("score").innerHTML = score;
+      document.getElementById("cursorcost").innerHTML = cursorCost;
+      document.getElementById("cursors").innerHTML = cursors;
+      document.getElementById("grandmaCost").innerHTML = grandmaCost;
+      document.getElementById("grandmas").innerHTML = grandmas;
+      document.getElementById("farmCost").innerHTML = farmCost;
+      document.getElementById("farms").innerHTML = farms;
+      document.getElementById("mineCost").innerHTML = mineCost;
+      document.getElementById("mines").innerHTML = mines;
+    };
+
+    document.addEventListener("keydown", function (event) {
+      if (event.ctrlKey && event.which == 83)
+        event.preventDefault();
+      saveGame();
+    }, false);
+
+    function resetGame() {
+      if (confirm("Are you sure you want to reset your game?")) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
+
+    setInterval(function () {
+      score = score + cursors;
+      score = score + (farms * 20);
+      score = score + (grandmas * 5);
+      score = score + (mines * 100);
+      document.getElementById("score").innerHTML = score;
+    }, 1000); // 1000ms = 1s
+
+    setInterval(function () {
+      saveGame();
+    }, 30000);
+
+    function secretCoolHacks69420() {
+      cursors = 69419;
+      grandmas = 69419;
+      farms = 69419;
+      mines = 69419;
+    }
+
+    function buyBlueCursor() {
+      if (score >= blueCursorCost) {
+        score = score - blueCursorCost;
+        blueCursors++;
+        blueCursorCost = Math.round(blueCursorCost * 5);
+        clickValue = clickValue * 2;
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("blueCursorCost").innerHTML = blueCursorCost;
+        document.getElementById("blueCursors").innerHTML = blueCursors;
+        updateScorePerSecond();
+      }
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === '1') {
+        window.location.href = 'https://classroom.google.com/w/NjI0MjczMTIzNzQy/t/all';
+      }
+    });
+
+    // Add more key bindings as needed...
+
+
+
+      
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '2') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/w/NjI0MjczMTIzNzQy/t/all`'; // Replace with the URL you want to redirect to
+            }
+
+            
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '3') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/w/NjIxMTc0OTUzODcw/t/all'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '4') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NjMyNTkyOTYzMzMz'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '5') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NjI0MjczMTIzNzQy'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '6') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NjE5ODE2Mjg4NDcz'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '7') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NjE5ODE2Mjg4NDcz'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '8') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NTI0MjE1MDc2ODY1'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '9') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NjIwNTM1Mjg5MjIz'; // Replace with the URL you want to redirect to
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === '0') { // You can replace 'p' with your desired panic key
+                window.location.href = 'https://classroom.google.com/c/NjIwNTM1Mjg5MjIz'; // Replace with the URL you want to redirect to
+            }
+        });
+  </script>
+</body>
+
+</html>

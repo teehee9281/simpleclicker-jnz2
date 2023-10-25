@@ -5,7 +5,7 @@
   <title>New Tab</title>
   <link rel="stylesheet" href="style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link rel="icon" href="images/chrome.png" type="image/png">
+  <link rel="icon" href="images/chrome5.png" type="image/png">
 
 </head>
 
@@ -65,6 +65,16 @@
         <td id="amount"><span id="mines">0</span></td>
       </tr>
     </table>
+    <table class="shopButton unselectable" onclick="buyBuilding()">
+      <tr>
+        <td id="image"><img src="images/building.png"></td>
+        <td id="nameAndCost">
+          <p>Building  </p>
+          <p><span id="buildingCost">20,000</span> cookies</p>
+        </td>
+        <td id="amount"><span id="mines">0</span></td>
+      </tr>
+    </table>
     <div id="upgrades">
       <h3>Upgrades!</h3>
       <button onclick="buyBlueCursor()" title="Click this to buy 2x clicks. (Stacks)">
@@ -84,6 +94,8 @@
     var farms = 0;
     var mines = 0;
     var mineCost = 5000;
+    var buildingCost = 20000;
+    var buildings = 0
 
     var clickValue = 1;
 
@@ -138,6 +150,19 @@
         document.getElementById("score").innerHTML = score;
         document.getElementById("mineCost").innerHTML = mineCost;
         document.getElementById("mines").innerHTML = mines;
+        updateScorePerSecond();
+      }
+    }
+
+    function buyBuilding() {
+      if (score >= buildingCost) {
+        score = score - buildingCost;
+        buildings = buildings + 1;
+        buildingCost = Math.round(buildingCost * 1.15);
+
+        document.getElementById("score").innerHTML = score;
+        document.getElementById("buildingCost").innerHTML = mineCost;
+        document.getElementById("buildings").innerHTML = mines;
         updateScorePerSecond();
       }
     }

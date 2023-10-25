@@ -72,7 +72,7 @@
           <p>Building  </p>
           <p><span id="buildingCost">20,000</span> cookies</p>
         </td>
-        <td id="amount"><span id="mines">0</span></td>
+        <td id="amount"><span id="buildings">0</span></td>
       </tr>
     </table>
     <div id="upgrades">
@@ -161,14 +161,14 @@
         buildingCost = Math.round(buildingCost * 1.15);
 
         document.getElementById("score").innerHTML = score;
-        document.getElementById("buildingCost").innerHTML = mineCost;
-        document.getElementById("buildings").innerHTML = mines;
+        document.getElementById("buildingCost").innerHTML = buildingCost;
+document.getElementById("buildings").innerHTML = buildings;
         updateScorePerSecond();
       }
     }
 
     function updateScorePerSecond() {
-      var scorePerSecond = cursors + (grandmas * 5) + (farms * 20) + (mines * 100);
+      var scorePerSecond = cursors + (grandmas * 5) + (farms * 20) + (mines * 100) + (buildings * 1000);
       document.getElementById("scorepersecond").innerHTML = scorePerSecond;
     }
 

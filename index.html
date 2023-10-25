@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -191,6 +192,8 @@ document.getElementById("buildings").innerHTML = buildings;
         blueCursorCost: blueCursorCost,
         blueCursors: blueCursors,
         clickValue: clickValue,
+        buildings: buildings,
+        buildingCost: buildingCost,
       };
       localStorage.setItem("gameSave", JSON.stringify(gameSave));
     }
@@ -210,6 +213,9 @@ document.getElementById("buildings").innerHTML = buildings;
         if (typeof savedGame.blueCursorCost !== "undefined") blueCursorCost = savedGame.blueCursorCost;
         if (typeof savedGame.blueCursors !== "undefined") blueCursors = savedGame.blueCursors;
         if (typeof savedGame.clickValue !== "undefined") clickValue = savedGame.clickValue;
+        if (typeof savedGame.buildingCost !== "undefined") buildingCost = savedGame.buildingCost; 
+        if (typeof savedGame.buildings !== "undefined") buildings = savedGame.buildings;
+
       }
     }
 
@@ -225,11 +231,18 @@ document.getElementById("buildings").innerHTML = buildings;
       document.getElementById("farms").innerHTML = farms;
       document.getElementById("mineCost").innerHTML = mineCost;
       document.getElementById("mines").innerHTML = mines;
+      document.getElementById("buildings").innerHTML = buildings;
+      document.getElementById("buildingCost").innerHTML = buildingCost;
     };
 
     document.addEventListener("keydown", function (event) {
       if (event.ctrlKey && event.which == 83)
         event.preventDefault();
+      saveGame();
+    }, false);
+
+    document.addEventListener("keydown", function (event) {
+      if (event.ctrlKey && event.which == 82)
       saveGame();
     }, false);
 
@@ -251,7 +264,7 @@ document.getElementById("buildings").innerHTML = buildings;
 
     setInterval(function () {
       saveGame();
-    }, 30000);
+    }, 5000);
 
     function secretCoolHacks69420() {
       cursors = 69419;

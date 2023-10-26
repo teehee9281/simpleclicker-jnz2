@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -26,7 +25,7 @@
   </div>
 
   <div class="sectionRight unselectable">
-    <table class="shopButton unselectable" onclick="buyCursor()">
+    <table class="shopButton unselectable" onclick="buyCursor()" title = "+5 cookies/second">
       <tr>
         <td id="image"><img src="images/clickcursor.png"></td>
         <td id="nameAndCost">
@@ -193,7 +192,7 @@ document.getElementById("buildings").innerHTML = buildings;
         blueCursors: blueCursors,
         clickValue: clickValue,
         buildings: buildings,
-        buildingCost: buildingCost,
+        buildingCost: buildingCost
       };
       localStorage.setItem("gameSave", JSON.stringify(gameSave));
     }
@@ -213,8 +212,8 @@ document.getElementById("buildings").innerHTML = buildings;
         if (typeof savedGame.blueCursorCost !== "undefined") blueCursorCost = savedGame.blueCursorCost;
         if (typeof savedGame.blueCursors !== "undefined") blueCursors = savedGame.blueCursors;
         if (typeof savedGame.clickValue !== "undefined") clickValue = savedGame.clickValue;
-        if (typeof savedGame.buildingCost !== "undefined") buildingCost = savedGame.buildingCost; 
         if (typeof savedGame.buildings !== "undefined") buildings = savedGame.buildings;
+        if (typeof savedGame.buildingCost !== "undefined") buildingCost = savedGame.buildingCost;
 
       }
     }
@@ -232,17 +231,11 @@ document.getElementById("buildings").innerHTML = buildings;
       document.getElementById("mineCost").innerHTML = mineCost;
       document.getElementById("mines").innerHTML = mines;
       document.getElementById("buildings").innerHTML = buildings;
-      document.getElementById("buildingCost").innerHTML = buildingCost;
     };
 
     document.addEventListener("keydown", function (event) {
       if (event.ctrlKey && event.which == 83)
         event.preventDefault();
-      saveGame();
-    }, false);
-
-    document.addEventListener("keydown", function (event) {
-      if (event.ctrlKey && event.which == 82)
       saveGame();
     }, false);
 
@@ -264,7 +257,7 @@ document.getElementById("buildings").innerHTML = buildings;
 
     setInterval(function () {
       saveGame();
-    }, 5000);
+    }, 30000);
 
     function secretCoolHacks69420() {
       cursors = 69419;

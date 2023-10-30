@@ -169,7 +169,7 @@ document.getElementById("buildings").innerHTML = buildings;
     }
 
     function updateScorePerSecond() {
-      var scorePerSecond = (cursors * 0.2) + (grandmas * 5) + (farms * 20) + (mines * 100) + (buildings * 1000);
+      var scorePerSecond = cursors + (grandmas * 5) + (farms * 20) + (mines * 100) + (buildings * 1000);
       document.getElementById("scorepersecond").innerHTML = scorePerSecond;
     }
 
@@ -251,7 +251,7 @@ document.getElementById("buildings").innerHTML = buildings;
     }
 
     setInterval(function () {
-      score = score + (cursors * 0.2);
+      score = score + cursors);
       score = score + (farms * 20);
       score = score + (grandmas * 5);
       score = score + (mines * 100);

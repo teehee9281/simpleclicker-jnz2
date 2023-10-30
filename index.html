@@ -78,13 +78,12 @@
     <div id="upgrades">
       <h3>Upgrades!</h3>
       <button onclick="buyBlueCursor()" title="Click this to buy 2x clicks. (Stacks)">
-        <p>Blue Cursor [ <span id="blueCursorCost"></span> cookies] </p>
+        <p>Blue Cursor [ <span id="blueCursorCost">100</span> cookies] </p>
       </button>
     </div>
   </div>
 
   <script>
-    var blueCursorCost = 100;
     var score = 0;
 
     var cursorCost = 15;
@@ -100,7 +99,7 @@
 
     var clickValue = 1;
 
-    
+    var blueCursorCost = 100;
     var blueCursors = 0;
 
     function buyCursor() {
@@ -232,7 +231,6 @@ document.getElementById("buildings").innerHTML = buildings;
       document.getElementById("mineCost").innerHTML = mineCost;
       document.getElementById("mines").innerHTML = mines;
       document.getElementById("buildings").innerHTML = buildings;
-      document.getElementById("buildingCost").innerHTML = buildingCost;
       document.getElementById("blueCursorCost").innerHTML = blueCursorCost;
       document.getElementById("blueCursors").innerHTML = blueCursors;
     };

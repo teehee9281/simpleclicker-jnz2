@@ -78,12 +78,13 @@
     <div id="upgrades">
       <h3>Upgrades!</h3>
       <button onclick="buyBlueCursor()" title="Click this to buy 2x clicks. (Stacks)">
-        Blue Cursor [ <span id="blueCursorCost">100</span> cookies]
+        <p>Blue Cursor [ <span id="blueCursorCost"></span> cookies] </p>
       </button>
     </div>
   </div>
 
   <script>
+    var blueCursorCost = 100;
     var score = 0;
 
     var cursorCost = 15;
@@ -99,7 +100,7 @@
 
     var clickValue = 1;
 
-    var blueCursorCost = 100;
+    
     var blueCursors = 0;
 
     function buyCursor() {
@@ -168,7 +169,7 @@ document.getElementById("buildings").innerHTML = buildings;
     }
 
     function updateScorePerSecond() {
-      var scorePerSecond = cursors + (grandmas * 5) + (farms * 20) + (mines * 100) + (buildings * 1000);
+      var scorePerSecond = (cursors * 0.2) + (grandmas * 5) + (farms * 20) + (mines * 100) + (buildings * 1000);
       document.getElementById("scorepersecond").innerHTML = scorePerSecond;
     }
 
@@ -231,6 +232,9 @@ document.getElementById("buildings").innerHTML = buildings;
       document.getElementById("mineCost").innerHTML = mineCost;
       document.getElementById("mines").innerHTML = mines;
       document.getElementById("buildings").innerHTML = buildings;
+      document.getElementById("buildingCost").innerHTML = buildingCost;
+      document.getElementById("blueCursorCost").innerHTML = blueCursorCost;
+      document.getElementById("blueCursors").innerHTML = blueCursors;
     };
 
     document.addEventListener("keydown", function (event) {
@@ -247,7 +251,7 @@ document.getElementById("buildings").innerHTML = buildings;
     }
 
     setInterval(function () {
-      score = score + cursors;
+      score = score + (cursors * 0.2);
       score = score + (farms * 20);
       score = score + (grandmas * 5);
       score = score + (mines * 100);
